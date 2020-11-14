@@ -1,19 +1,27 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { Component } from "react";
+import { Text, TouchableOpacity, View } from "./src/Shared/StyledComponents";
+import TestComponent from "./src/Components/Test";
+import { ThemeProvider } from "styled-components";
+import { MainTheme } from "./src/Shared/ColorPalette";
+import Login from "./src/Components/Login";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-    </View>
-  );
+export default class App extends Component {
+  constructor(props: {} | Readonly<{}>) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <ThemeProvider theme={MainTheme}>
+        <View>
+          <Login />
+          <Text>Open up App.tsx to start working on your app!</Text>
+          <TouchableOpacity>
+            <Text color="#fff">Henlo</Text>
+          </TouchableOpacity>
+          <TestComponent message="Hello from test component!" />
+        </View>
+      </ThemeProvider>
+    );
+  }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
