@@ -1,0 +1,12 @@
+{
+  "name": "dev-mobile-av2-aps2",
+  "displayName": "dev-mobile-av2-aps2",
+  "expo": {
+    "name": "dev-mobile-av2-aps2",
+    "slug": "dev-mobile-av2-aps2",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
