@@ -1,9 +1,8 @@
 import React, { Component } from "react";
-import { Text, TouchableOpacity, View } from "./src/Shared/StyledComponents";
-import TestComponent from "./src/Components/Test";
+import { View } from "./src/Shared/StyledComponents";
 import { ThemeProvider } from "styled-components";
 import { MainTheme } from "./src/Shared/ColorPalette";
-import Login from "./src/Components/Login";
+import Login from "./src/Components/Login/Login";
 
 export default class App extends Component {
   constructor(props: {} | Readonly<{}>) {
@@ -15,11 +14,6 @@ export default class App extends Component {
       <ThemeProvider theme={MainTheme}>
         <View>
           <Login />
-          <Text>Open up App.tsx to start working on your app!</Text>
-          <TouchableOpacity>
-            <Text color="#fff">Henlo</Text>
-          </TouchableOpacity>
-          <TestComponent message="Hello from test component!" />
         </View>
       </ThemeProvider>
     );

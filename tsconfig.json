@@ -10,5 +10,6 @@
     "strict": true
   },
   "include": ["src"],
-  "files": ["src/Declaration/*"]
+  "files": ["src/Declaration/*"],
+  "exclude": ["node_modules", "babel.config.js", "metro.config.js", "jest.config.js"]
 }

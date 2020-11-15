@@ -1,19 +1,23 @@
-type Palette = {
+export type Palette = {
   primary?: String;
   secondary?: String;
   tertiary?: String;
+  quarternary?: String;
   warning?: String;
   danger?: String;
   background?: String;
-  text?: String;
+  lightText?: String;
+  darkText?: String;
 };
 
 export const MainTheme: Palette = {
-  primary: "#aa33ff",
-  secondary: "#6300f6",
-  tertiary: "#000366",
+  primary: "#AE1B73",
+  secondary: "#688bf4",
+  tertiary: "#be9e08",
+  quarternary: "#42182e",
   warning: "#f3ff66",
   danger: "#ff0040",
-  background: "#e7e7e7",
-  text: "#131313",
+  background: "#f5f5f5",
+  lightText: "#f5f5f5",
+  darkText: "#131313"
 };
