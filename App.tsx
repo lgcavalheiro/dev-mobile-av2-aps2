@@ -1,8 +1,10 @@
+import "react-native-gesture-handler";
 import React, { Component } from "react";
-import { Text, BGI } from "./src/Shared/StyledComponents";
+import { Text } from "./src/Shared/StyledComponents";
 import { ThemeProvider } from "styled-components";
 import { MainTheme } from "./src/Shared/ColorPalette";
-import Login from "./src/Components/Login/Login";
+import Router from "./src/Routes/Router";
+import "./src/services/firebase";
 
 export default class App extends Component {
   constructor(props: {} | Readonly<{}>) {
@@ -12,13 +14,13 @@ export default class App extends Component {
   render() {
     return (
       <ThemeProvider theme={MainTheme}>
-        <BGI source={MainTheme.bgi}>
-          <Login />
-        </BGI>
-        <Text dark>
-          Background vector created by freepik - www.freepik.com -
-          https://www.freepik.com/vectors/background
-        </Text>
+        <>
+          <Router />
+          {/* <Text dark>
+            Background vector created by freepik - www.freepik.com -
+            https://www.freepik.com/vectors/background
+          </Text> */}
+        </>
       </ThemeProvider>
     );
   }

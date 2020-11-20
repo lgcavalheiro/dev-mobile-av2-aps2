@@ -10,8 +10,9 @@ export interface Palette {
   background: string;
   lightText: string;
   darkText: string;
+  grey: string;
   bgi: URL;
-};
+}
 
 export const MainTheme: Palette = {
   primary: "#AE1B73",
@@ -23,5 +24,6 @@ export const MainTheme: Palette = {
   background: "#f5f5f5",
   lightText: "#f5f5f5",
   darkText: "#131313",
+  grey: "#ccc",
   bgi: bgi,
 };

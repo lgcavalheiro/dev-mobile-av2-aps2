@@ -6,6 +6,7 @@ import {
   ButtonGroup,
   TextInput,
   TextButton,
+  BGI,
 } from "../../Shared/StyledComponents";
 import { MainTheme } from "../../Shared/ColorPalette";
 
@@ -17,6 +18,10 @@ import logo from "../../../assets/logo.png";
 //import context user
 
 export default class Login extends Component {
+  constructor(props: {} | Readonly<{}>) {
+    super(props);
+  }
+
   state: LoginState = {
     scope: "student",
     isLoading: false,
@@ -34,7 +39,7 @@ export default class Login extends Component {
 
   render() {
     return (
-      <>
+      <BGI source={MainTheme.bgi}>
         <Image source={logo} style={{ width: 300, height: 100 }} />
         <Text>Problemas para formar</Text>
         <Text>um trabalho em grupo?</Text>
@@ -81,19 +86,23 @@ export default class Login extends Component {
           </TextButton>
 
           <ButtonGroup>
-            <LoginButton color={MainTheme.background} onPress={() => this.handleRegister()}>
+            <LoginButton
+              color={MainTheme.background}
+              onPress={() => this.handleRegister()}
+              disabled={this.state.isLoading}
+            >
               {this.state.isLoading ? (
                 <ActivityIndicator color={MainTheme.primary} />
               ) : (
                 <Text customColor={MainTheme.primary}>Cadastre-se</Text>
               )}
             </LoginButton>
-            <LoginButton onPress={() => this.handleLogin()}>
+            <LoginButton onPress={() => this.handleLogin()} disabled={this.state.isLoading}>
               <Text>Entrar</Text>
             </LoginButton>
           </ButtonGroup>
         </GenericBox>
-      </>
+      </BGI>
     );
   }
 }

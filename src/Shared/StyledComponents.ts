@@ -1,4 +1,5 @@
 import styled, { DefaultTheme } from "styled-components/native";
+import { MainTheme } from "./ColorPalette";
 
 interface Props {
   theme: {
@@ -62,7 +63,7 @@ export const ButtonGroup = styled.View`
 `;
 
 export const TextInput = styled.TextInput`
-  border: 1px solid #ccc;
+  border: 1px solid ${MainTheme.grey};
   height: 65px;
   margin-top: 5px;
   border-radius: 5px;
