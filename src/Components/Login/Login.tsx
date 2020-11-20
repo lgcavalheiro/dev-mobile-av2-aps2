@@ -15,7 +15,7 @@ import { LoginState } from "./Login.type";
 
 import logo from "../../../assets/logo.png";
 
-//import context user
+import { Consumer } from "../../Context/UserProvider";
 
 export default class Login extends Component {
   constructor(props: {} | Readonly<{}>) {
@@ -27,14 +27,25 @@ export default class Login extends Component {
     isLoading: false,
   };
 
-  private handleLogin() {
+  private handleLogin(callback: Function) {
     console.log("LOGIN: ", this.state.email, this.state.password, this.state.scope);
+    try {
+      callback(this.state.email, this.state.password);
+    } catch (e) {
+      console.warn(e);
+    }
   }
 
-  private handleRegister() {
+  private handleRegister(callback: Function) {
     console.log("REGISTER: ", this.state.email, this.state.password, this.state.scope);
     this.setState({ isLoading: true });
-    setTimeout(() => this.setState({ isLoading: false }), 4000);
+    try {
+      callback(this.state.email, this.state.password);
+    } catch (e) {
+      console.warn(e);
+    } finally {
+      this.setState({ isLoading: false });
+    }
   }
 
   render() {
@@ -85,22 +96,29 @@ export default class Login extends Component {
             </Text>
           </TextButton>
 
-          <ButtonGroup>
-            <LoginButton
-              color={MainTheme.background}
-              onPress={() => this.handleRegister()}
-              disabled={this.state.isLoading}
-            >
-              {this.state.isLoading ? (
-                <ActivityIndicator color={MainTheme.primary} />
-              ) : (
-                <Text customColor={MainTheme.primary}>Cadastre-se</Text>
-              )}
-            </LoginButton>
-            <LoginButton onPress={() => this.handleLogin()} disabled={this.state.isLoading}>
-              <Text>Entrar</Text>
-            </LoginButton>
-          </ButtonGroup>
+          <Consumer>
+            {(context: any) => (
+              <ButtonGroup>
+                <LoginButton
+                  color={MainTheme.background}
+                  onPress={() => this.handleRegister(context.actions.register)}
+                  disabled={this.state.isLoading}
+                >
+                  {this.state.isLoading ? (
+                    <ActivityIndicator color={MainTheme.primary} />
+                  ) : (
+                    <Text customColor={MainTheme.primary}>Cadastre-se</Text>
+                  )}
+                </LoginButton>
+                <LoginButton
+                  onPress={() => this.handleLogin(context.actions.login)}
+                  disabled={this.state.isLoading}
+                >
+                  <Text>Entrar</Text>
+                </LoginButton>
+              </ButtonGroup>
+            )}
+          </Consumer>
         </GenericBox>
       </BGI>
     );

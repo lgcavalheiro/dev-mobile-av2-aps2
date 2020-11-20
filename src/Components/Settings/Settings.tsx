@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { MainTheme } from "../../Shared/ColorPalette";
 
-import { BGI, Text } from "../../Shared/StyledComponents";
+import { BGI, Text, TouchableOpacity } from "../../Shared/StyledComponents";
+
+import { Consumer } from "../../Context/UserProvider";
 
 export default class Settings extends Component {
   constructor(props: {} | Readonly<{}>) {
@@ -11,7 +13,16 @@ export default class Settings extends Component {
   render() {
     return (
       <BGI source={MainTheme.bgi}>
-        <Text>SETTINGS COMPONENT</Text>
+        <Consumer>
+          {(context: any) => (
+            <>
+              <Text>SETTINGS COMPONENT</Text>
+              <TouchableOpacity onPress={() => context.actions.logout()}>
+                <Text>Logout</Text>
+              </TouchableOpacity>
+            </>
+          )}
+        </Consumer>
       </BGI>
     );
   }

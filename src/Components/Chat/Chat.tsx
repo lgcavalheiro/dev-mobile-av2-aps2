@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { MainTheme } from "../../Shared/ColorPalette";
-
-import { BGI, Text } from "../../Shared/StyledComponents";
+import { Consumer } from "../../Context/UserProvider";
+import { BGI, Text, TouchableOpacity } from "../../Shared/StyledComponents";
 
 export default class Chat extends Component {
   constructor(props: {} | Readonly<{}>) {
@@ -10,9 +10,18 @@ export default class Chat extends Component {
 
   render() {
     return (
-      <BGI source={MainTheme.bgi}>
-        <Text>CHAT COMPONENT</Text>
-      </BGI>
+      <Consumer>
+        {(context: any) => (
+          <BGI source={MainTheme.bgi}>
+            <Text>
+              CHAT COMPONENT {context.name} {context.email}
+            </Text>
+            <TouchableOpacity onPress={() => context.actions.setName("Bob Butch")}>
+              <Text>Change name</Text>
+            </TouchableOpacity>
+          </BGI>
+        )}
+      </Consumer>
     );
   }
 }
