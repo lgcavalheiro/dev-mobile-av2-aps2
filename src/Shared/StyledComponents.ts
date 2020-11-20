@@ -1,4 +1,24 @@
-import styled from "styled-components/native";
+import styled, { DefaultTheme } from "styled-components/native";
+
+interface Props {
+  theme: {
+    primary: string;
+    darkText: string;
+    lightText: string;
+    background: string;
+  };
+  color: string;
+  customColor: string;
+  dark: boolean;
+  rightAligned: boolean;
+  bold: boolean;
+}
+
+export const BGI = styled.ImageBackground<any>`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+`;
 
 export const View = styled.View<any>`
   flex: 1;
@@ -36,12 +56,12 @@ export const GenericBox = styled.View<any>`
   padding: 20px;
 `;
 
-export const ButtonGroup = styled.View<any>`
+export const ButtonGroup = styled.View`
   flex-direction: row;
   background-color: rgba(0, 0, 0, 0);
 `;
 
-export const TextInput = styled.TextInput<any>`
+export const TextInput = styled.TextInput`
   border: 1px solid #ccc;
   height: 65px;
   margin-top: 5px;
@@ -49,6 +69,6 @@ export const TextInput = styled.TextInput<any>`
   padding: 0 20px;
 `;
 
-export const TextButton = styled(TouchableOpacity)<any>`
+export const TextButton = styled(TouchableOpacity)`
   background-color: rgba(0, 0, 0, 0);
 `;

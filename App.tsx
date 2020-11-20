@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View } from "./src/Shared/StyledComponents";
+import { Text, BGI } from "./src/Shared/StyledComponents";
 import { ThemeProvider } from "styled-components";
 import { MainTheme } from "./src/Shared/ColorPalette";
 import Login from "./src/Components/Login/Login";
@@ -12,9 +12,13 @@ export default class App extends Component {
   render() {
     return (
       <ThemeProvider theme={MainTheme}>
-        <View>
+        <BGI source={MainTheme.bgi}>
           <Login />
-        </View>
+        </BGI>
+        <Text dark>
+          Background vector created by freepik - www.freepik.com -
+          https://www.freepik.com/vectors/background
+        </Text>
       </ThemeProvider>
     );
   }

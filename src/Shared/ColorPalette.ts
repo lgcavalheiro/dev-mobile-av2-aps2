@@ -1,13 +1,16 @@
-export type Palette = {
-  primary?: String;
-  secondary?: String;
-  tertiary?: String;
-  quarternary?: String;
-  warning?: String;
-  danger?: String;
-  background?: String;
-  lightText?: String;
-  darkText?: String;
+import bgi from "../../assets/bgi.jpg";
+
+export interface Palette {
+  primary: string;
+  secondary: string;
+  tertiary: string;
+  quarternary: string;
+  warning: string;
+  danger: string;
+  background: string;
+  lightText: string;
+  darkText: string;
+  bgi: URL;
 };
 
 export const MainTheme: Palette = {
@@ -19,5 +22,6 @@ export const MainTheme: Palette = {
   danger: "#ff0040",
   background: "#f5f5f5",
   lightText: "#f5f5f5",
-  darkText: "#131313"
+  darkText: "#131313",
+  bgi: bgi,
 };

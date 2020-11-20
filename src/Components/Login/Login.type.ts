@@ -1,5 +1,6 @@
 export type LoginState = {
-    scope: String;
-    email?: String;
-    password?: String;
-  };
+  scope: string;
+  email?: string;
+  password?: string;
+  isLoading: boolean;
+};

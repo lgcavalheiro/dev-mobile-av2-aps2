@@ -19,7 +19,18 @@ import logo from "../../../assets/logo.png";
 export default class Login extends Component {
   state: LoginState = {
     scope: "student",
+    isLoading: false,
   };
+
+  private handleLogin() {
+    console.log("LOGIN: ", this.state.email, this.state.password, this.state.scope);
+  }
+
+  private handleRegister() {
+    console.log("REGISTER: ", this.state.email, this.state.password, this.state.scope);
+    this.setState({ isLoading: true });
+    setTimeout(() => this.setState({ isLoading: false }), 4000);
+  }
 
   render() {
     return (
@@ -52,14 +63,14 @@ export default class Login extends Component {
           <Text dark>Email</Text>
           <TextInput
             placeholder="Email"
-            onChangeText={(text: any) => this.setState({ email: text })}
+            onChangeText={(text: string) => this.setState({ email: text })}
             value={this.state.email}
           />
           <Text dark>Senha</Text>
           <TextInput
             placeholder="Senha"
             secureTextEntry={true}
-            onChangeText={(text: any) => this.setState({ password: text })}
+            onChangeText={(text: string) => this.setState({ password: text })}
             value={this.state.password}
           />
 
@@ -70,10 +81,14 @@ export default class Login extends Component {
           </TextButton>
 
           <ButtonGroup>
-            <LoginButton color={MainTheme.background}>
-              <Text customColor={MainTheme.primary}>Cadastre-se</Text>
+            <LoginButton color={MainTheme.background} onPress={() => this.handleRegister()}>
+              {this.state.isLoading ? (
+                <ActivityIndicator color={MainTheme.primary} />
+              ) : (
+                <Text customColor={MainTheme.primary}>Cadastre-se</Text>
+              )}
             </LoginButton>
-            <LoginButton>
+            <LoginButton onPress={() => this.handleLogin()}>
               <Text>Entrar</Text>
             </LoginButton>
           </ButtonGroup>
