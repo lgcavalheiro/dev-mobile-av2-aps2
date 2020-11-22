@@ -10,10 +10,6 @@ import firebase from "firebase";
 import "firebase/firestore";
 
 export default class Chat extends Component {
-  constructor(props: {} | Readonly<{}>) {
-    super(props);
-  }
-
   state: ChatState = {
     text: "",
     author: "",
@@ -28,23 +24,24 @@ export default class Chat extends Component {
       .firestore()
       .collection("messages")
       .orderBy("timestamp")
-      .onSnapshot(snap => {
-        let data: Message[] = snap.docs.map(
-          (doc: firebase.firestore.QueryDocumentSnapshot<firebase.firestore.DocumentData>) => {
-            let { text, author, timestamp } = doc.data();
-            let temp: Message = {
-              id: doc.id,
-              text,
-              author,
-              timestamp,
-            };
-
-            return temp;
-          }
-        );
-
-        this.setState({ messageLog: data });
-      });
+      .onSnapshot(
+        snap => {
+          let data: Message[] = snap.docs.map(
+            (doc: firebase.firestore.QueryDocumentSnapshot<firebase.firestore.DocumentData>) => {
+              let { text, author, timestamp } = doc.data();
+              let temp: Message = {
+                id: doc.id,
+                text,
+                author,
+                timestamp,
+              };
+              return temp;
+            }
+          );
+          this.setState({ messageLog: data });
+        },
+        e => console.log(e)
+      );
   }
 
   componentWillUnmount() {
@@ -52,13 +49,13 @@ export default class Chat extends Component {
   }
 
   private handleAddMessage() {
-    try {
-      let { text, author, timestamp } = this.state;
-      firebase.firestore().collection("messages").add({ text, author, timestamp });
-      this.setState({ text: "", timestamp: undefined });
-    } catch (e) {
-      console.log(e);
-    }
+    let { text, author } = this.state;
+    firebase
+      .firestore()
+      .collection("messages")
+      .add({ text, author, timestamp: firebase.firestore.FieldValue.serverTimestamp() })
+      .then(() => this.setState({ text: "" }))
+      .catch(e => console.log(e));
   }
 
   render() {
@@ -67,7 +64,7 @@ export default class Chat extends Component {
         {(context: any) => (
           <BGI source={MainTheme.bgi}>
             <ChatLog>
-              {this.state.messageLog?.map(m => (
+              {this.state.messageLog?.map((m: Message) => (
                 <ChatMessage key={m.id} isOwner={context.name === m.author} message={m} />
               ))}
             </ChatLog>
@@ -80,13 +77,7 @@ export default class Chat extends Component {
               />
               <TouchableOpacity
                 onPress={() => {
-                  this.setState(
-                    {
-                      author: context.name,
-                      timestamp: new Date(),
-                    },
-                    () => this.handleAddMessage()
-                  );
+                  this.setState({ author: context.name }, () => this.handleAddMessage());
                 }}
                 disabled={this.state.text!.length === 0}
               >

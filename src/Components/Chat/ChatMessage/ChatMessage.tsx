@@ -4,10 +4,14 @@ import { Message } from "./ChatMessage.style";
 import { ChatMessageProps } from "./ChatMessage.type";
 
 export default class ChatMessage extends Component<ChatMessageProps> {
-  private makeTimestamp(date: Date) {
-    return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} ${date.getDate()}-${
-      date.getMonth() + 1
-    }-${date.getFullYear()}`;
+  private makeTimestamp(date: Date | undefined): String {
+    if (!date) {
+      return "timestamp não disponível";
+    } else {
+      return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} ${date.getDate()}-${
+        date.getMonth() + 1
+      }-${date.getFullYear()}`;
+    }
   }
 
   private renderMessage() {
@@ -15,7 +19,7 @@ export default class ChatMessage extends Component<ChatMessageProps> {
       <Message isOwner={this.props.isOwner}>
         <Text>{this.props.message.text}</Text>
         <Text>
-          {this.props.message.author} @ {this.makeTimestamp(this.props.message.timestamp.toDate())}
+          {this.props.message.author} @ {this.makeTimestamp(this.props.message.timestamp?.toDate())}
         </Text>
       </Message>
     );
