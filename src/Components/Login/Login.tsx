@@ -28,7 +28,6 @@ export default class Login extends Component {
   };
 
   private handleLogin(callback: Function) {
-    console.log("LOGIN: ", this.state.email, this.state.password, this.state.scope);
     try {
       callback(this.state.email, this.state.password);
     } catch (e) {
@@ -37,7 +36,6 @@ export default class Login extends Component {
   }
 
   private handleRegister(callback: Function) {
-    console.log("REGISTER: ", this.state.email, this.state.password, this.state.scope);
     this.setState({ isLoading: true });
     try {
       callback(this.state.email, this.state.password);

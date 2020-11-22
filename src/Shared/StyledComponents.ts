@@ -62,12 +62,13 @@ export const ButtonGroup = styled.View`
   background-color: rgba(0, 0, 0, 0);
 `;
 
-export const TextInput = styled.TextInput`
+export const TextInput = styled.TextInput<any>`
   border: 1px solid ${MainTheme.grey};
   height: 65px;
   margin-top: 5px;
   border-radius: 5px;
   padding: 0 20px;
+  background-color: ${props => (props.opaque ? props.theme.background : "rgba(0, 0, 0, 0)")};
 `;
 
 export const TextButton = styled(TouchableOpacity)`
