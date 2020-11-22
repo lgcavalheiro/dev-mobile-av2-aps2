@@ -13,30 +13,6 @@ export interface IUserContext {
 
 export const { Consumer } = userContext;
 
-const login = (email: string, password: string) => {
-  firebase
-    .auth()
-    .signInWithEmailAndPassword(email, password)
-    .then(response => console.log(response))
-    .catch(error => console.log(error));
-};
-
-const logout = () => {
-  firebase
-    .auth()
-    .signOut()
-    .then(response => console.log("Logged out successfully", response))
-    .catch(error => console.log(error));
-};
-
-const register = (email: string, password: string) => {
-  firebase
-    .auth()
-    .createUserWithEmailAndPassword(email, password)
-    .then(response => console.log(response))
-    .catch(error => console.log(error));
-};
-
 export default class UserProvider extends Component {
   constructor(props: {} | Readonly<{}>) {
     super(props);
@@ -47,9 +23,6 @@ export default class UserProvider extends Component {
     isAuth: false,
     actions: {
       setName: (newName: string) => this.setState({ name: newName }),
-      login,
-      logout,
-      register,
     },
   };
 

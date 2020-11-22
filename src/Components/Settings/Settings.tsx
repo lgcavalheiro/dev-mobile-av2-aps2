@@ -3,7 +3,7 @@ import { MainTheme } from "../../Shared/ColorPalette";
 
 import { BGI, Text, TouchableOpacity } from "../../Shared/StyledComponents";
 
-import { Consumer } from "../../Context/UserProvider";
+import AuthService from "../../Services/AuthService";
 
 export default class Settings extends Component {
   constructor(props: {} | Readonly<{}>) {
@@ -13,16 +13,10 @@ export default class Settings extends Component {
   render() {
     return (
       <BGI source={MainTheme.bgi}>
-        <Consumer>
-          {(context: any) => (
-            <>
-              <Text>SETTINGS COMPONENT</Text>
-              <TouchableOpacity onPress={() => context.actions.logout()}>
-                <Text>Logout</Text>
-              </TouchableOpacity>
-            </>
-          )}
-        </Consumer>
+        <Text>SETTINGS COMPONENT</Text>
+        <TouchableOpacity onPress={() => AuthService.logout()}>
+          <Text>Logout</Text>
+        </TouchableOpacity>
       </BGI>
     );
   }

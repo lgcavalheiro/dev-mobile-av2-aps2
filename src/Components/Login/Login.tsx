@@ -15,7 +15,7 @@ import { LoginState } from "./Login.type";
 
 import logo from "../../../assets/logo.png";
 
-import { Consumer } from "../../Context/UserProvider";
+import AuthService from "../../Services/AuthService";
 
 export default class Login extends Component {
   constructor(props: {} | Readonly<{}>) {
@@ -27,18 +27,18 @@ export default class Login extends Component {
     isLoading: false,
   };
 
-  private handleLogin(callback: Function) {
+  private handleLogin() {
     try {
-      callback(this.state.email, this.state.password);
+      AuthService.login(this.state.email!, this.state.password!);
     } catch (e) {
       console.warn(e);
     }
   }
 
-  private handleRegister(callback: Function) {
+  private handleRegister() {
     this.setState({ isLoading: true });
     try {
-      callback(this.state.email, this.state.password);
+      AuthService.register(this.state.email!, this.state.password!);
     } catch (e) {
       console.warn(e);
     } finally {
@@ -94,29 +94,22 @@ export default class Login extends Component {
             </Text>
           </TextButton>
 
-          <Consumer>
-            {(context: any) => (
-              <ButtonGroup>
-                <LoginButton
-                  color={MainTheme.background}
-                  onPress={() => this.handleRegister(context.actions.register)}
-                  disabled={this.state.isLoading}
-                >
-                  {this.state.isLoading ? (
-                    <ActivityIndicator color={MainTheme.primary} />
-                  ) : (
-                    <Text customColor={MainTheme.primary}>Cadastre-se</Text>
-                  )}
-                </LoginButton>
-                <LoginButton
-                  onPress={() => this.handleLogin(context.actions.login)}
-                  disabled={this.state.isLoading}
-                >
-                  <Text>Entrar</Text>
-                </LoginButton>
-              </ButtonGroup>
-            )}
-          </Consumer>
+          <ButtonGroup>
+            <LoginButton
+              color={MainTheme.background}
+              onPress={() => this.handleRegister()}
+              disabled={this.state.isLoading}
+            >
+              {this.state.isLoading ? (
+                <ActivityIndicator color={MainTheme.primary} />
+              ) : (
+                <Text customColor={MainTheme.primary}>Cadastre-se</Text>
+              )}
+            </LoginButton>
+            <LoginButton onPress={() => this.handleLogin()} disabled={this.state.isLoading}>
+              <Text>Entrar</Text>
+            </LoginButton>
+          </ButtonGroup>
         </GenericBox>
       </BGI>
     );
