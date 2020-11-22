@@ -8,7 +8,7 @@ if [[ "$CI" != "" ]];
     # Vamos ignorar esta parte por hora
   else
     echo 'Instalando dependencias linux'
-    yes | sdkmanager "platforms;android-23"
-    yes | sdkmanager "build-tools;23.0.1"
+    yes | sdkmanager "platforms;android-29"
+    yes | sdkmanager "build-tools;29.0.2"
   fi
 fi
