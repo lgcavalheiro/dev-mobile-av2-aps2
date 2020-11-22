@@ -1,18 +1,13 @@
 import "react-native-gesture-handler";
+import "./src/Services/FirebaseService";
 import React, { Component } from "react";
 import { Text } from "./src/Shared/StyledComponents";
 import { ThemeProvider } from "styled-components";
 import { MainTheme } from "./src/Shared/ColorPalette";
 import Router from "./src/Routes/Router";
-import "./src/Services/firebase";
-
-import UserProvider from "./src/Context/UserProvider";
+import UserProvider from "./src/Context/User/UserProvider";
 
 export default class App extends Component {
-  constructor(props: {} | Readonly<{}>) {
-    super(props);
-  }
-
   render() {
     return (
       <UserProvider>

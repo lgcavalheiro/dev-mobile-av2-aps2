@@ -5,5 +5,5 @@ export interface ChatState {
   author: string;
   timestamp?: Date;
   messageLog: Message[] | undefined;
+  isLoading: boolean;
 }
-

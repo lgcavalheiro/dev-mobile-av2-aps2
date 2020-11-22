@@ -1,3 +1,4 @@
+import logo from "../../../assets/logo.png";
 import React, { Component } from "react";
 import { Image, ActivityIndicator } from "react-native";
 import {
@@ -9,20 +10,12 @@ import {
   BGI,
 } from "../../Shared/StyledComponents";
 import { MainTheme } from "../../Shared/ColorPalette";
-
 import { UserButton, LoginButton } from "./Login.style";
 import { LoginState } from "./Login.type";
-
-import logo from "../../../assets/logo.png";
-
 import AuthService from "../../Services/AuthService";
-import { Consumer } from "../../Context/UserProvider";
+import { Consumer } from "../../Context/User/UserProvider.context";
 
 export default class Login extends Component {
-  constructor(props: {} | Readonly<{}>) {
-    super(props);
-  }
-
   state: LoginState = {
     scope: "student",
     isLoading: false,
@@ -96,25 +89,26 @@ export default class Login extends Component {
           </TextButton>
 
           <ButtonGroup>
-            <Consumer>
-              {(context: any) => (
-                <LoginButton
-                  color={MainTheme.background}
-                  onPress={() => this.handleRegister(context.actions.setName)}
-                  disabled={this.state.isLoading}
-                >
-                  {this.state.isLoading ? (
-                    <ActivityIndicator color={MainTheme.primary} />
-                  ) : (
-                    <Text customColor={MainTheme.primary}>Cadastre-se</Text>
+            {this.state.isLoading ? (
+              <ActivityIndicator color={MainTheme.primary} />
+            ) : (
+              <>
+                <Consumer>
+                  {(context: any) => (
+                    <LoginButton
+                      color={MainTheme.background}
+                      onPress={() => this.handleRegister(context.actions.setName)}
+                      disabled={this.state.isLoading}
+                    >
+                      <Text customColor={MainTheme.primary}>Cadastre-se</Text>
+                    </LoginButton>
                   )}
+                </Consumer>
+                <LoginButton onPress={() => this.handleLogin()} disabled={this.state.isLoading}>
+                  <Text>Entrar</Text>
                 </LoginButton>
-              )}
-            </Consumer>
-
-            <LoginButton onPress={() => this.handleLogin()} disabled={this.state.isLoading}>
-              <Text>Entrar</Text>
-            </LoginButton>
+              </>
+            )}
           </ButtonGroup>
         </GenericBox>
       </BGI>
