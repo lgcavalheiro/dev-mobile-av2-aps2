@@ -3,7 +3,7 @@ import { Message } from "./ChatMessage/ChatMessage.type";
 export interface ChatState {
   text?: string;
   author: string;
-  timestamp: Date | undefined;
+  timestamp?: Date;
   messageLog: Message[] | undefined;
+  isLoading: boolean;
 }
-

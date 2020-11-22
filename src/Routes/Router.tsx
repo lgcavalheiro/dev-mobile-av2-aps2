@@ -3,7 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 
 import AppRoutes from "./App.routes";
 import AuthRoutes from "./Auth.routes";
-import { Consumer } from "../Context/UserProvider";
+import { Consumer } from "../Context/User/UserProvider.context";
 
 export default class Router extends Component {
   render() {
