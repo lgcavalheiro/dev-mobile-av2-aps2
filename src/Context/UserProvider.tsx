@@ -26,13 +26,19 @@ export default class UserProvider extends Component {
     },
   };
 
+  unsubscribeAuthState!: firebase.Unsubscribe;
+
   componentDidMount() {
-    firebase.auth().onAuthStateChanged((user: firebase.User | null) => {
+    this.unsubscribeAuthState = firebase.auth().onAuthStateChanged((user: firebase.User | null) => {
       user != null
-        ? this.setState({ isAuth: true, name: user.email })
+        ? this.setState({ isAuth: true, name: user.displayName || user.email?.split("@")[0] })
         : this.setState({ isAuth: false });
       return user;
     });
+  }
+
+  componentWillUnmount() {
+    if (this.unsubscribeAuthState) this.unsubscribeAuthState();
   }
 
   render() {

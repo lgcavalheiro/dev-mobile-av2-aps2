@@ -6,7 +6,7 @@ import { ChatMessageProps } from "./ChatMessage.type";
 export default class ChatMessage extends Component<ChatMessageProps> {
   private makeTimestamp(date: Date | undefined): String {
     if (!date) {
-      return "timestamp não disponível";
+      return "";
     } else {
       return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} ${date.getDate()}-${
         date.getMonth() + 1

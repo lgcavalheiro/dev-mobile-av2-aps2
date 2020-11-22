@@ -13,7 +13,6 @@ export default class Settings extends Component {
   render() {
     return (
       <BGI source={MainTheme.bgi}>
-        <Text>SETTINGS COMPONENT</Text>
         <TouchableOpacity onPress={() => AuthService.logout()}>
           <Text>Logout</Text>
         </TouchableOpacity>

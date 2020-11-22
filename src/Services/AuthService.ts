@@ -6,7 +6,7 @@ export default class AuthService {
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .then(response => console.log("USER JWT: ", response.user?.getIdToken))
+      .then(response => console.log("USER LOGGED: ", response.user?.providerId))
       .catch(error => console.log(error));
   }
 
@@ -18,13 +18,15 @@ export default class AuthService {
       .catch(error => console.log(error));
   }
 
-  public static register(email: string, password: string) {
+  public static register(email: string, password: string, displayName: string, setName: Function) {
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .then(response => {
-        console.log("USER JWT: ", response.user?.getIdToken);
-        response.user?.updateProfile({ displayName: "TEST DISPLAY NAME REPLACE LATER ".trim() });
+        console.log("USER LOGGED: ", response.user?.email);
+        let display = displayName || response.user?.email?.split("@")[0];
+        response.user?.updateProfile({ displayName: display }).then(() => setName(display));
+        console.log(response.user?.displayName);
       })
       .catch(error => console.log(error));
   }

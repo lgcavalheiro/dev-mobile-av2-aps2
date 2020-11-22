@@ -17,7 +17,7 @@ export default class Chat extends Component {
     messageLog: undefined,
   };
 
-  unsubscribeMessageListener!: () => void;
+  unsubscribeMessageListener!: firebase.Unsubscribe;
 
   componentDidMount() {
     this.unsubscribeMessageListener = firebase

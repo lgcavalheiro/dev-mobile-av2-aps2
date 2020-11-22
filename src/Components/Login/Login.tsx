@@ -16,6 +16,7 @@ import { LoginState } from "./Login.type";
 import logo from "../../../assets/logo.png";
 
 import AuthService from "../../Services/AuthService";
+import { Consumer } from "../../Context/UserProvider";
 
 export default class Login extends Component {
   constructor(props: {} | Readonly<{}>) {
@@ -35,10 +36,10 @@ export default class Login extends Component {
     }
   }
 
-  private handleRegister() {
+  private handleRegister(setName: Function) {
     this.setState({ isLoading: true });
     try {
-      AuthService.register(this.state.email!, this.state.password!);
+      AuthService.register(this.state.email!, this.state.password!, "DISPLAY TEST ", setName);
     } catch (e) {
       console.warn(e);
     } finally {
@@ -95,17 +96,22 @@ export default class Login extends Component {
           </TextButton>
 
           <ButtonGroup>
-            <LoginButton
-              color={MainTheme.background}
-              onPress={() => this.handleRegister()}
-              disabled={this.state.isLoading}
-            >
-              {this.state.isLoading ? (
-                <ActivityIndicator color={MainTheme.primary} />
-              ) : (
-                <Text customColor={MainTheme.primary}>Cadastre-se</Text>
+            <Consumer>
+              {(context: any) => (
+                <LoginButton
+                  color={MainTheme.background}
+                  onPress={() => this.handleRegister(context.actions.setName)}
+                  disabled={this.state.isLoading}
+                >
+                  {this.state.isLoading ? (
+                    <ActivityIndicator color={MainTheme.primary} />
+                  ) : (
+                    <Text customColor={MainTheme.primary}>Cadastre-se</Text>
+                  )}
+                </LoginButton>
               )}
-            </LoginButton>
+            </Consumer>
+
             <LoginButton onPress={() => this.handleLogin()} disabled={this.state.isLoading}>
               <Text>Entrar</Text>
             </LoginButton>
