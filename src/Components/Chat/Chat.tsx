@@ -1,7 +1,7 @@
 import "firebase/firestore";
 import firebase from "firebase";
 import React, { Component } from "react";
-import { ActivityIndicator } from "react-native";
+import { ActivityIndicator, Alert } from "react-native";
 import { MainTheme } from "../../Shared/ColorPalette";
 import { Consumer } from "../../Context/User/UserProvider.context";
 import { BGI, ButtonGroup, Text, TextInput, TouchableOpacity } from "../../Shared/StyledComponents";
@@ -62,7 +62,13 @@ export default class Chat extends Component {
       .collection("messages")
       .add({ text, author, timestamp: firebase.firestore.FieldValue.serverTimestamp() })
       .then(() => this.setState({ text: "" }))
-      .catch(e => console.log(e))
+      .catch(e =>
+        Alert.alert("Erro de char", e, [
+          {
+            text: "Ok",
+          },
+        ])
+      )
       .finally(() => this.setState({ isLoading: false }));
   }
 

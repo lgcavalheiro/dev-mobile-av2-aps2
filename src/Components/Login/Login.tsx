@@ -1,6 +1,6 @@
 import logo from "../../../assets/logo.png";
 import React, { Component } from "react";
-import { Image, ActivityIndicator } from "react-native";
+import { Image, ActivityIndicator, Alert } from "react-native";
 import {
   Text,
   GenericBox,
@@ -21,20 +21,28 @@ export default class Login extends Component {
     isLoading: false,
   };
 
-  private handleLogin() {
-    try {
-      AuthService.login(this.state.email!, this.state.password!);
-    } catch (e) {
-      console.warn(e);
-    }
-  }
-
-  private handleRegister(setName: Function) {
+  private handleAuth(operation: string, setName?: Function) {
     this.setState({ isLoading: true });
     try {
-      AuthService.register(this.state.email!, this.state.password!, "DISPLAY TEST ", setName);
+      if (operation === "login") AuthService.login(this.state.email!, this.state.password!);
+      else if (operation === "register")
+        AuthService.register(this.state.email!, this.state.password!, "DISPLAY TEST ", setName!);
+      else
+        Alert.alert(
+          "Erro de autenticação",
+          "Operação de autenticação não reconhecida, por favor, aguarde e tente novamente.",
+          [
+            {
+              text: "Ok",
+            },
+          ]
+        );
     } catch (e) {
-      console.warn(e);
+      Alert.alert("Erro de autenticação", e, [
+        {
+          text: "Ok",
+        },
+      ]);
     } finally {
       this.setState({ isLoading: false });
     }
@@ -97,14 +105,17 @@ export default class Login extends Component {
                   {(context: any) => (
                     <LoginButton
                       color={MainTheme.background}
-                      onPress={() => this.handleRegister(context.actions.setName)}
+                      onPress={() => this.handleAuth("register", context.actions.setName)}
                       disabled={this.state.isLoading}
                     >
                       <Text customColor={MainTheme.primary}>Cadastre-se</Text>
                     </LoginButton>
                   )}
                 </Consumer>
-                <LoginButton onPress={() => this.handleLogin()} disabled={this.state.isLoading}>
+                <LoginButton
+                  onPress={() => this.handleAuth("login")}
+                  disabled={this.state.isLoading}
+                >
                   <Text>Entrar</Text>
                 </LoginButton>
               </>
