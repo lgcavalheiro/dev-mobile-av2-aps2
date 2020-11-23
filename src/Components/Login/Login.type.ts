@@ -1,6 +1,7 @@
-export type LoginState = {
-  scope: string;
+export interface LoginForm {
   email?: string;
   password?: string;
-  isLoading: boolean;
-};
+  isLoading?: boolean;
+  scope?: string;
+  callback?: Function;
+}

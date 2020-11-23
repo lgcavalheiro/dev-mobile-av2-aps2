@@ -24,8 +24,10 @@ export const BGI = styled.ImageBackground<any>`
 export const View = styled.View<any>`
   flex: 1;
   align-items: center;
-  justify-content: center;
+  ${props => (props.jc ? `justify-content: ${props.jc};` : "")}
   background-color: ${props => props.color || props.theme.primary};
+  ${props => (props.marginTop ? `margin-top: ${props.marginTop}px;` : "")}
+  ${props => (props.padding ? `padding: ${props.padding}px;` : "")}
 `;
 
 export const Text = styled.Text<any>`
@@ -36,6 +38,10 @@ export const Text = styled.Text<any>`
   }}
   ${props => (props.rightAligned ? "text-align: right;" : "")}
   ${props => (props.bold ? "font-weight: bold;" : "")}
+  ${props => (props.fontSize ? `font-size: ${props.fontSize}px;` : "")}
+  ${props => (props.alignSelf ? `align-self: ${props.alignSelf};` : "")}
+  ${props => (props.marginLeft ? `margin-left: ${props.marginLeft}px;` : "")}
+  ${props => (props.marginBottom ? `margin-bottom: ${props.marginBottom}px;` : "")}
 `;
 
 export const TouchableOpacity = styled.TouchableOpacity<any>`
@@ -43,6 +49,8 @@ export const TouchableOpacity = styled.TouchableOpacity<any>`
   padding: 16px;
   margin: 8px;
   border-radius: 4px;
+  ${props => (props.hasBorder ? `border: 1px solid ${props.theme.primary};` : "")}
+  ${props => (props.alignSelf ? `align-self: ${props.alignSelf};` : "")}
 `;
 
 export const GenericBox = styled.View<any>`
@@ -68,6 +76,8 @@ export const TextInput = styled.TextInput<any>`
   margin-top: 5px;
   border-radius: 5px;
   padding: 0 20px;
+  ${props => (props.width ? `width: ${props.width}%;` : "")}
+  ${props => (props.height ? `height: ${props.height}%;` : "")}
   background-color: ${props => (props.opaque ? props.theme.background : "rgba(0, 0, 0, 0)")};
 `;
 

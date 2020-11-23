@@ -82,6 +82,7 @@ export default class Chat extends Component {
                 <ChatMessage key={m.id} isOwner={context.name === m.author} message={m} />
               ))}
             </ChatLog>
+
             {this.state.isLoading ? (
               <ActivityIndicator color={MainTheme.primary} />
             ) : (

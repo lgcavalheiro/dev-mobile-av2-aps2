@@ -1,6 +1,6 @@
 import "firebase/auth";
 import firebase from "firebase";
-import React, { Component, createContext } from "react";
+import React, { Component } from "react";
 import { IUserContext } from "./UserProvider.type";
 import { Provider } from "./UserProvider.context";
 
@@ -27,7 +27,7 @@ export default class UserProvider extends Component {
 
   private onAuthStateChange(user: firebase.User | null) {
     user != null
-      ? this.setState({ isAuth: true, name: user.displayName || user.email?.split("@")[0] })
+      ? this.setState({ isAuth: true, name: user.displayName })
       : this.setState({ isAuth: false });
     return user;
   }
