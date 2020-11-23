@@ -59,4 +59,19 @@ export default class AuthService {
         .catch(e => reject(`Oops! Houve um erro :( \n ${e})`));
     });
   }
+
+  public static redefineDisplayName(displayName: string, setName: Function): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+      firebase
+        .auth()
+        .currentUser?.updateProfile({ displayName })
+        .then(() => {
+          setName(displayName);
+          resolve("Dados atualizados com sucesso!");
+        })
+        .catch(e => {
+          reject("Erro ao atualizar os dados, aguarde e tente novamente");
+        });
+    });
+  }
 }

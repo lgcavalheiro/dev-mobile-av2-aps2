@@ -20,6 +20,7 @@ export default class Chat extends Component<any> {
   state: ChatState = {
     text: "",
     author: "",
+    email: "",
     timestamp: undefined,
     messageLog: undefined,
     isLoading: false,
@@ -47,11 +48,12 @@ export default class Chat extends Component<any> {
   ) {
     let data: Message[] = snap.docs.map(
       (doc: firebase.firestore.QueryDocumentSnapshot<firebase.firestore.DocumentData>) => {
-        let { text, author, timestamp } = doc.data();
+        let { text, author, timestamp, email } = doc.data();
         let temp: Message = {
           id: doc.id,
           text,
           author,
+          email,
           timestamp,
         };
         return temp;
@@ -61,12 +63,12 @@ export default class Chat extends Component<any> {
   }
 
   private handleAddMessage() {
-    let { text, author } = this.state;
+    let { text, author, email } = this.state;
     this.setState({ isLoading: true });
     firebase
       .firestore()
       .collection(`messages-${this.props.route.params.group}`)
-      .add({ text, author, timestamp: firebase.firestore.FieldValue.serverTimestamp() })
+      .add({ text, author, email, timestamp: firebase.firestore.FieldValue.serverTimestamp() })
       .then(() => this.setState({ text: "" }))
       .catch(e =>
         Alert.alert("Erro de char", e, [
@@ -85,7 +87,7 @@ export default class Chat extends Component<any> {
           <BGI source={MainTheme.bgi}>
             <ChatLog>
               {this.state.messageLog?.map((m: Message) => (
-                <ChatMessage key={m.id} isOwner={context.name === m.author} message={m} />
+                <ChatMessage key={m.id} isOwner={context.email === m.email} message={m} />
               ))}
             </ChatLog>
 
@@ -93,6 +95,13 @@ export default class Chat extends Component<any> {
               <ActivityIndicator color={MainTheme.primary} />
             ) : (
               <ButtonGroup>
+                <TouchableOpacity
+                  color={MainTheme.secondary}
+                  onPress={() => this.props.navigation.goBack()}
+                >
+                  <Text>Voltar</Text>
+                </TouchableOpacity>
+
                 <TextInput
                   opaque
                   placeholder="Digite sua mensagem"
@@ -101,7 +110,9 @@ export default class Chat extends Component<any> {
                 />
                 <TouchableOpacity
                   onPress={() => {
-                    this.setState({ author: context.name }, () => this.handleAddMessage());
+                    this.setState({ author: context.name, email: context.email }, () =>
+                      this.handleAddMessage()
+                    );
                   }}
                   disabled={this.state.text!.length === 0}
                 >

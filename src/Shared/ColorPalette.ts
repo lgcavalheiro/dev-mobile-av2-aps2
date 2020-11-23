@@ -11,6 +11,7 @@ export interface Palette {
   lightText: string;
   darkText: string;
   grey: string;
+  transparent: string;
   bgi: URL;
 }
 
@@ -25,5 +26,6 @@ export const MainTheme: Palette = {
   lightText: "#f5f5f5",
   darkText: "#131313",
   grey: "#ccc",
+  transparent: "rgba(0,0,0,0)",
   bgi: bgi,
 };

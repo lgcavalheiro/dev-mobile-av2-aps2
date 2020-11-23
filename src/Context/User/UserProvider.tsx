@@ -7,6 +7,7 @@ import { Provider } from "./UserProvider.context";
 export default class UserProvider extends Component {
   state: IUserContext = {
     name: "",
+    email: "",
     isAuth: false,
     actions: {
       setName: (name: string) => this.setState({ name }),
@@ -27,7 +28,7 @@ export default class UserProvider extends Component {
 
   private onAuthStateChange(user: firebase.User | null) {
     user != null
-      ? this.setState({ isAuth: true, name: user.displayName })
+      ? this.setState({ isAuth: true, name: user.displayName, email: user.email })
       : this.setState({ isAuth: false });
     return user;
   }

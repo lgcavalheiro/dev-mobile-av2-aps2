@@ -1,4 +1,4 @@
-import styled, { DefaultTheme } from "styled-components/native";
+import styled from "styled-components/native";
 import { MainTheme } from "./ColorPalette";
 
 interface Props {
@@ -24,7 +24,7 @@ export const ScrollView = styled.ScrollView<any>`
   border-top-left-radius: 16px;
   border-bottom-right-radius: 16px;
   border-bottom-left-radius: 16px;
-  background-color: ${props => props.color || props.theme.secondary};
+  background-color: ${props => props.color || props.theme.secondary}cc;
 `;
 
 export const BGI = styled.ImageBackground<any>`
@@ -69,7 +69,7 @@ export const GenericBox = styled.View<any>`
   height: 65%;
   width: 92%;
   margin-top: 16px;
-  background-color: ${props => props.theme.background};
+  background-color: ${props => props.color || props.theme.background};
   border-top-right-radius: 25px;
   border-top-left-radius: 25px;
   border-bottom-right-radius: 25px;
