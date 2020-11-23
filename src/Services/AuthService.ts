@@ -24,7 +24,7 @@ export default class AuthService {
       .createUserWithEmailAndPassword(email, password)
       .then(response => {
         console.log("USER LOGGED: ", response.user?.email);
-        let display = displayName || response.user?.email?.split("@")[0];
+        let display = displayName; //|| response.user?.email?.split("@")[0]
         response.user?.updateProfile({ displayName: display }).then(() => setName(display));
         console.log(response.user?.displayName);
       })

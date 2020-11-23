@@ -100,37 +100,29 @@ export default class Login extends Component<any> {
             </Text>
           </TextButton>
 
-          <ButtonGroup>
-            {this.state.isLoading ? (
-              <ActivityIndicator color={MainTheme.primary} />
-            ) : (
-              <>
-                <Consumer>
-                  {(context: any) => (
-                    <LoginButton
-                      color={MainTheme.background}
-                      onPress={() =>
-                        this.props.navigation.navigate("Register", {
-                          scope: this.getTranslatedScope(),
-                        })
-                      }
-                      disabled={this.state.isLoading}
-                    >
-                      <Text customColor={MainTheme.primary}>
-                        Cadastre-se como {this.getTranslatedScope()}
-                      </Text>
-                    </LoginButton>
-                  )}
-                </Consumer>
-                <LoginButton
-                  onPress={() => this.handleAuth("login")}
-                  disabled={this.state.isLoading}
-                >
-                  <Text>Entrar como {this.getTranslatedScope()}</Text>
-                </LoginButton>
-              </>
-            )}
-          </ButtonGroup>
+          {this.state.isLoading ? (
+            <ActivityIndicator color={MainTheme.primary} />
+          ) : (
+            <ButtonGroup>
+              <LoginButton
+                color={MainTheme.background}
+                onPress={() =>
+                  this.props.navigation.navigate("Register", {
+                    scope: this.getTranslatedScope(),
+                  })
+                }
+                disabled={this.state.isLoading}
+              >
+                <Text customColor={MainTheme.primary}>
+                  Cadastre-se como {this.getTranslatedScope()}
+                </Text>
+              </LoginButton>
+
+              <LoginButton onPress={() => this.handleAuth("login")} disabled={this.state.isLoading}>
+                <Text>Entrar como {this.getTranslatedScope()}</Text>
+              </LoginButton>
+            </ButtonGroup>
+          )}
         </GenericBox>
       </BGI>
     );

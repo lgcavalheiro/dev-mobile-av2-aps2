@@ -26,6 +26,7 @@ export const View = styled.View<any>`
   align-items: center;
   ${props => (props.jc ? `justify-content: ${props.jc};` : "")}
   background-color: ${props => props.color || props.theme.primary};
+  ${props => (props.marginTop ? `margin-top: ${props.marginTop}px;` : "")}
 `;
 
 export const Text = styled.Text<any>`
@@ -46,6 +47,7 @@ export const TouchableOpacity = styled.TouchableOpacity<any>`
   padding: 16px;
   margin: 8px;
   border-radius: 4px;
+  ${props => (props.hasBorder ? `border: 1px solid ${props.theme.primary};` : "")}
   ${props => (props.alignSelf ? `align-self: ${props.alignSelf};` : "")}
 `;
 

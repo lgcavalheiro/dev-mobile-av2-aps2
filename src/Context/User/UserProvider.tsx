@@ -27,7 +27,7 @@ export default class UserProvider extends Component {
 
   private onAuthStateChange(user: firebase.User | null) {
     user != null
-      ? this.setState({ isAuth: true, name: user.displayName || user.email?.split("@")[0] })
+      ? this.setState({ isAuth: true, name: user.displayName }) // || user.email?.split("@")[0]
       : this.setState({ isAuth: false });
     return user;
   }
