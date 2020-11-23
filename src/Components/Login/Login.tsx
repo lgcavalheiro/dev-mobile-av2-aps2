@@ -15,7 +15,7 @@ import { LoginState } from "./Login.type";
 import AuthService from "../../Services/AuthService";
 import { Consumer } from "../../Context/User/UserProvider.context";
 
-export default class Login extends Component {
+export default class Login extends Component<any> {
   state: LoginState = {
     scope: "student",
     isLoading: false,
@@ -46,6 +46,10 @@ export default class Login extends Component {
     } finally {
       this.setState({ isLoading: false });
     }
+  }
+
+  private getTranslatedScope() {
+    return this.state.scope === "student" ? "aluno" : "professor";
   }
 
   render() {
@@ -105,10 +109,16 @@ export default class Login extends Component {
                   {(context: any) => (
                     <LoginButton
                       color={MainTheme.background}
-                      onPress={() => this.handleAuth("register", context.actions.setName)}
+                      onPress={() =>
+                        this.props.navigation.navigate("Register", {
+                          scope: this.getTranslatedScope(),
+                        })
+                      }
                       disabled={this.state.isLoading}
                     >
-                      <Text customColor={MainTheme.primary}>Cadastre-se</Text>
+                      <Text customColor={MainTheme.primary}>
+                        Cadastre-se como {this.getTranslatedScope()}
+                      </Text>
                     </LoginButton>
                   )}
                 </Consumer>
@@ -116,7 +126,7 @@ export default class Login extends Component {
                   onPress={() => this.handleAuth("login")}
                   disabled={this.state.isLoading}
                 >
-                  <Text>Entrar</Text>
+                  <Text>Entrar como {this.getTranslatedScope()}</Text>
                 </LoginButton>
               </>
             )}
