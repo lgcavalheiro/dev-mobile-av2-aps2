@@ -2,9 +2,15 @@ import "firebase/firestore";
 import firebase from "firebase";
 import React, { Component } from "react";
 import { ActivityIndicator, Alert } from "react-native";
-import { MainTheme } from "../../Shared/ColorPalette";
-import { Consumer } from "../../Context/User/UserProvider.context";
-import { BGI, ButtonGroup, Text, TextInput, TouchableOpacity } from "../../Shared/StyledComponents";
+import { MainTheme } from "../../../Shared/ColorPalette";
+import { Consumer } from "../../../Context/User/UserProvider.context";
+import {
+  BGI,
+  ButtonGroup,
+  Text,
+  TextInput,
+  TouchableOpacity,
+} from "../../../Shared/StyledComponents";
 import { ChatState } from "./Chat.type";
 import { ChatLog } from "./Chat.style";
 import { Message } from "./ChatMessage/ChatMessage.type";
