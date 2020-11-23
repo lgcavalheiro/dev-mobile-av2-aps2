@@ -16,7 +16,7 @@ import { ChatLog } from "./Chat.style";
 import { Message } from "./ChatMessage/ChatMessage.type";
 import ChatMessage from "./ChatMessage/ChatMessage";
 
-export default class Chat extends Component {
+export default class Chat extends Component<any> {
   state: ChatState = {
     text: "",
     author: "",
@@ -30,7 +30,7 @@ export default class Chat extends Component {
   componentDidMount() {
     this.unsubscribeMessageListener = firebase
       .firestore()
-      .collection("messages")
+      .collection(`messages-${this.props.route.params.group}`)
       .orderBy("timestamp")
       .onSnapshot(
         snap => this.onSnapshotUpdate(snap),
@@ -65,7 +65,7 @@ export default class Chat extends Component {
     this.setState({ isLoading: true });
     firebase
       .firestore()
-      .collection("messages")
+      .collection(`messages-${this.props.route.params.group}`)
       .add({ text, author, timestamp: firebase.firestore.FieldValue.serverTimestamp() })
       .then(() => this.setState({ text: "" }))
       .catch(e =>

@@ -1,6 +1,7 @@
 import styled from "styled-components/native";
+import { ScrollView } from "../../../Shared/StyledComponents";
 
-export const ChatLog = styled.ScrollView<any>`
+export const ChatLog = styled(ScrollView)`
   height: 84%;
   width: 90%;
   padding: 20px;

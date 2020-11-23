@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-import Chat from "../Components/Group/Chat/Chat";
-import Group from "../Components/Group/Group";
+import ChatRoutes from "./Chat.routes";
 import Settings from "../Components/Settings/Settings";
 import { MainTheme } from "../Shared/ColorPalette";
 
@@ -26,7 +25,7 @@ export default class AppRoutes extends Component {
       >
         <Screen
           name="Grupos"
-          component={Group}
+          component={ChatRoutes}
           options={{
             tabBarIcon: ({ color }) => this.getTabStyle(color, "chat"),
           }}

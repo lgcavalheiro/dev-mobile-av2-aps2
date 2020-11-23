@@ -15,6 +15,18 @@ interface Props {
   bold: boolean;
 }
 
+export const ScrollView = styled.ScrollView<any>`
+  height: 100%;
+  width: 90%;
+  padding: 20px;
+  margin-top: 32px;
+  border-top-right-radius: 16px;
+  border-top-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+  border-bottom-left-radius: 16px;
+  background-color: ${props => props.color || props.theme.secondary};
+`;
+
 export const BGI = styled.ImageBackground<any>`
   flex: 1;
   align-items: center;
@@ -63,6 +75,13 @@ export const GenericBox = styled.View<any>`
   border-bottom-right-radius: 25px;
   border-bottom-left-radius: 25px;
   padding: 20px;
+`;
+
+export const GenericCard = styled(GenericBox)`
+  height: 14%;
+  width: 100%;
+  align-items: center;
+  padding: 8px;
 `;
 
 export const ButtonGroup = styled.View`
