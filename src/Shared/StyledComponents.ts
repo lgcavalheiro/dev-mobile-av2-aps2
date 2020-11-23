@@ -27,6 +27,7 @@ export const View = styled.View<any>`
   ${props => (props.jc ? `justify-content: ${props.jc};` : "")}
   background-color: ${props => props.color || props.theme.primary};
   ${props => (props.marginTop ? `margin-top: ${props.marginTop}px;` : "")}
+  ${props => (props.padding ? `padding: ${props.padding}px;` : "")}
 `;
 
 export const Text = styled.Text<any>`
@@ -40,6 +41,7 @@ export const Text = styled.Text<any>`
   ${props => (props.fontSize ? `font-size: ${props.fontSize}px;` : "")}
   ${props => (props.alignSelf ? `align-self: ${props.alignSelf};` : "")}
   ${props => (props.marginLeft ? `margin-left: ${props.marginLeft}px;` : "")}
+  ${props => (props.marginBottom ? `margin-bottom: ${props.marginBottom}px;` : "")}
 `;
 
 export const TouchableOpacity = styled.TouchableOpacity<any>`

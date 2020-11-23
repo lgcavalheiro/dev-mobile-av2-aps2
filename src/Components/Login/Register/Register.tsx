@@ -1,6 +1,6 @@
 import logo from "../../../../assets/logo.png";
 import React, { Component } from "react";
-import { Image, ActivityIndicator } from "react-native";
+import { Alert, Image } from "react-native";
 import { withFormik } from "formik";
 import {
   Text,
@@ -130,6 +130,20 @@ export default withFormik<any, any, any>({
   handleSubmit: (values: RegisterForm, { props }) => {
     let { displayName, email, password, callback } = values;
 
-    AuthService.register(email!, password!, displayName!, callback!);
+    AuthService.register(email!, password!, displayName!, callback!)
+      .then(response =>
+        Alert.alert("Cadastro ok!", response, [
+          {
+            text: "Ok",
+          },
+        ])
+      )
+      .catch(e =>
+        Alert.alert("Erro de cadastro", e, [
+          {
+            text: "Ok",
+          },
+        ])
+      );
   },
 })(Register);
