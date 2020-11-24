@@ -1,6 +1,6 @@
 import logo from "../../../assets/logo.png";
 import React, { Component } from "react";
-import { Image, ActivityIndicator, Alert } from "react-native";
+import { Image, ActivityIndicator, Alert, KeyboardAvoidingView } from "react-native";
 import { withFormik } from "formik";
 import {
   Text,
@@ -47,7 +47,7 @@ class Login extends Component<any> {
         </Text>
 
         <GenericBox>
-          <ButtonGroup>
+          <ButtonGroup style={{ marginBottom: 16 }}>
             <UserButton
               color={MainTheme.background}
               onPress={() => this.props.setFieldValue("scope", "student")}
@@ -117,6 +117,8 @@ class Login extends Component<any> {
 
 export default withFormik<any, any, any>({
   mapPropsToValues: () => ({ email: "", password: "", isLoading: false, scope: "student" }),
+  validateOnBlur: false,
+  validateOnChange: false,
   validate: (values: LoginForm, { props }) => {
     const error: LoginForm = {};
 

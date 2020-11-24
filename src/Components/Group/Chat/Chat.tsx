@@ -1,7 +1,7 @@
 import "firebase/firestore";
 import firebase from "firebase";
 import React, { Component } from "react";
-import { ActivityIndicator, Alert } from "react-native";
+import { ActivityIndicator, Alert, KeyboardAvoidingView } from "react-native";
 import { MainTheme } from "../../../Shared/ColorPalette";
 import { Consumer } from "../../../Context/User/UserProvider.context";
 import {
@@ -85,41 +85,47 @@ export default class Chat extends Component<any> {
       <Consumer>
         {(context: any) => (
           <BGI source={MainTheme.bgi}>
-            <ChatLog>
-              {this.state.messageLog?.map((m: Message) => (
-                <ChatMessage key={m.id} isOwner={context.email === m.email} message={m} />
-              ))}
-            </ChatLog>
+            <KeyboardAvoidingView contentContainerStyle={{ backgroundColor: MainTheme.secondary }}>
+              <ChatLog>
+                {this.state.messageLog?.map((m: Message) => (
+                  <ChatMessage key={m.id} isOwner={context.email === m.email} message={m} />
+                ))}
+              </ChatLog>
 
-            {this.state.isLoading ? (
-              <ActivityIndicator color={MainTheme.primary} />
-            ) : (
-              <ButtonGroup>
-                <TouchableOpacity
+              {this.state.isLoading ? (
+                <ActivityIndicator
                   color={MainTheme.secondary}
-                  onPress={() => this.props.navigation.goBack()}
-                >
-                  <Text>Voltar</Text>
-                </TouchableOpacity>
-
-                <TextInput
-                  opaque
-                  placeholder="Digite sua mensagem"
-                  onChangeText={(text: string) => this.setState({ text: text })}
-                  value={this.state.text}
+                  size={64}
+                  style={{ padding: 16, alignSelf: "center" }}
                 />
-                <TouchableOpacity
-                  onPress={() => {
-                    this.setState({ author: context.name, email: context.email }, () =>
-                      this.handleAddMessage()
-                    );
-                  }}
-                  disabled={this.state.text!.length === 0}
-                >
-                  <Text>Enviar</Text>
-                </TouchableOpacity>
-              </ButtonGroup>
-            )}
+              ) : (
+                <ButtonGroup>
+                  <TouchableOpacity
+                    color={MainTheme.secondary}
+                    onPress={() => this.props.navigation.goBack()}
+                  >
+                    <Text>Voltar</Text>
+                  </TouchableOpacity>
+
+                  <TextInput
+                    opaque
+                    placeholder="Digite sua mensagem"
+                    onChangeText={(text: string) => this.setState({ text: text })}
+                    value={this.state.text}
+                  />
+                  <TouchableOpacity
+                    onPress={() => {
+                      this.setState({ author: context.name, email: context.email }, () =>
+                        this.handleAddMessage()
+                      );
+                    }}
+                    disabled={this.state.text!.length === 0}
+                  >
+                    <Text>Enviar</Text>
+                  </TouchableOpacity>
+                </ButtonGroup>
+              )}
+            </KeyboardAvoidingView>
           </BGI>
         )}
       </Consumer>

@@ -67,7 +67,7 @@ export const TouchableOpacity = styled.TouchableOpacity<any>`
 `;
 
 export const GenericBox = styled.View<any>`
-  height: 65%;
+  height: 74%;
   width: 92%;
   margin-top: 16px;
   background-color: ${props => props.color || props.theme.background};
