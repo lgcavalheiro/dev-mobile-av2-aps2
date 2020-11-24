@@ -22,7 +22,7 @@ export default class Group extends Component<any> {
 
   async componentDidMount() {
     try {
-      let response = await fetch("http://192.168.0.105:3333/disciplines");
+      let response = await fetch("https://10.0.0.2:3333/disciplines");
       let result = await response.json();
       this.setState({ groupList: result.data.map((d: { roomName: string }) => d.roomName) });
       console.log(result);

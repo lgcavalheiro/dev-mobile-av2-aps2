@@ -19,6 +19,7 @@ export const ScrollView = styled.ScrollView<any>`
   height: 100%;
   width: 90%;
   padding: 20px;
+  padding-top: 0px;
   margin-top: 32px;
   border-top-right-radius: 16px;
   border-top-left-radius: 16px;

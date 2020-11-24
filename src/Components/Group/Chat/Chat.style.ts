@@ -2,9 +2,9 @@ import styled from "styled-components/native";
 import { ScrollView } from "../../../Shared/StyledComponents";
 
 export const ChatLog = styled(ScrollView)`
-  height: 84%;
+  height: 34%;
   width: 90%;
-  padding: 20px;
+  padding-top: 0px;
   margin-top: 32px;
   border-top-right-radius: 16px;
   border-top-left-radius: 16px;
