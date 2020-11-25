@@ -1,5 +1,4 @@
 import styled from "styled-components/native";
-import { ScrollView } from "../../../Shared/StyledComponents";
 
 export const ChatLog = styled.ScrollView<any>`
   align-self: center;
