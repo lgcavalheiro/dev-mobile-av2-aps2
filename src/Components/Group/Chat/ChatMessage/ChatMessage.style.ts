@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { View } from "../../../Shared/StyledComponents";
+import { View } from "../../../../Shared/StyledComponents";
 
 export const Message = styled(View)`
   background-color: ${props => (props.isOwner ? props.theme.secondary : props.theme.primary)};

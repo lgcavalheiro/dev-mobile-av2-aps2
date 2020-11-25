@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text } from "../../../Shared/StyledComponents";
+import { Text } from "../../../../Shared/StyledComponents";
 import { Message } from "./ChatMessage.style";
 import { ChatMessageProps } from "./ChatMessage.type";
 

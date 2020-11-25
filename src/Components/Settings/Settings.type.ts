@@ -1,3 +1,3 @@
-export type SettingsState = {
-
-};
+export interface SettingsState {
+  displayName: string;
+}

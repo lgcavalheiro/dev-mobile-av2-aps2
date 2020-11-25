@@ -1,14 +1,8 @@
 import logo from "../../../../assets/logo.png";
 import React, { Component } from "react";
-import { Alert, Image } from "react-native";
+import { Alert, Image, KeyboardAvoidingView } from "react-native";
 import { withFormik } from "formik";
-import {
-  Text,
-  ButtonGroup,
-  TextInput,
-  View,
-  TouchableOpacity,
-} from "../../../Shared/StyledComponents";
+import { Text, ButtonGroup, TextInput, TouchableOpacity } from "../../../Shared/StyledComponents";
 import { MainTheme } from "../../../Shared/ColorPalette";
 import { RegisterForm } from "./Register.type";
 import AuthService from "../../../Services/AuthService";
@@ -17,7 +11,14 @@ import { Consumer } from "../../../Context/User/UserProvider.context";
 class Register extends Component<any> {
   render() {
     return (
-      <View color={MainTheme.background} marginTop={64}>
+      <KeyboardAvoidingView
+        style={{
+          flex: 1,
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: MainTheme.background,
+        }}
+      >
         <Image source={logo} style={{ width: 256, height: 80 }} />
 
         <Text dark>Olá novo {this.props.route.params.scope}!</Text>
@@ -27,8 +28,7 @@ class Register extends Component<any> {
         </Text>
         <Text customColor={MainTheme.danger}>{this.props.errors.displayName}</Text>
         <TextInput
-          width={92}
-          height={8}
+          width={330}
           placeholder="Nome"
           onChangeText={(text: string) => this.props.setFieldValue("displayName", text.trim())}
         />
@@ -38,8 +38,7 @@ class Register extends Component<any> {
         </Text>
         <Text customColor={MainTheme.danger}>{this.props.errors.email}</Text>
         <TextInput
-          width={92}
-          height={8}
+          width={330}
           placeholder="Email"
           onChangeText={(text: string) => this.props.setFieldValue("email", text.trim())}
         />
@@ -49,8 +48,7 @@ class Register extends Component<any> {
         </Text>
         <Text customColor={MainTheme.danger}>{this.props.errors.password}</Text>
         <TextInput
-          width={92}
-          height={8}
+          width={330}
           placeholder="Senha"
           secureTextEntry={true}
           onChangeText={(text: string) => this.props.setFieldValue("password", text.trim())}
@@ -61,8 +59,7 @@ class Register extends Component<any> {
         </Text>
         <Text customColor={MainTheme.danger}>{this.props.errors.passwordConfirm}</Text>
         <TextInput
-          width={92}
-          height={8}
+          width={330}
           placeholder="Confirmar senha"
           secureTextEntry={true}
           onChangeText={(text: string) => this.props.setFieldValue("passwordConfirm", text.trim())}
@@ -90,13 +87,15 @@ class Register extends Component<any> {
             )}
           </Consumer>
         </ButtonGroup>
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }
 
 export default withFormik<any, any, any>({
   mapPropsToValues: () => ({ email: "", password: "", passwordConfirm: "", displayName: "" }),
+  validateOnBlur: false,
+  validateOnChange: false,
   validate: (values: RegisterForm, props) => {
     const error: RegisterForm = {};
 
