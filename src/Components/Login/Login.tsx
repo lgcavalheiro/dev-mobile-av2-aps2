@@ -1,6 +1,6 @@
 import logo from "../../../assets/logo.png";
 import React, { Component } from "react";
-import { Image, ActivityIndicator, Alert, KeyboardAvoidingView } from "react-native";
+import { Image, ActivityIndicator, Alert } from "react-native";
 import { withFormik } from "formik";
 import {
   Text,
@@ -20,7 +20,7 @@ class Login extends Component<any> {
     this.props.setFieldValue("callback", this.handleLogin);
   }
 
-  private handleLogin(email: string, password: string) {
+  private handleLogin(email: string, password: string, setSub: Function) {
     AuthService.login(email, password)
       .then(() => true)
       .catch(e =>
@@ -29,7 +29,8 @@ class Login extends Component<any> {
             text: "Ok",
           },
         ])
-      );
+      )
+      .finally(() => setSub(false));
   }
 
   private getTranslatedScope() {
@@ -83,8 +84,12 @@ class Login extends Component<any> {
             </Text>
           </TextButton>
 
-          {this.props.values.isLoading ? (
-            <ActivityIndicator color={MainTheme.primary} />
+          {this.props.isSubmitting ? (
+            <ActivityIndicator
+              color={MainTheme.secondary}
+              size={32}
+              style={{ padding: 16, alignSelf: "center" }}
+            />
           ) : (
             <ButtonGroup>
               <LoginButton
@@ -94,7 +99,7 @@ class Login extends Component<any> {
                     scope: this.getTranslatedScope(),
                   })
                 }
-                disabled={this.props.values.isLoading}
+                disabled={this.props.isSubmitting}
               >
                 <Text customColor={MainTheme.primary}>
                   Cadastre-se como {this.getTranslatedScope()}
@@ -103,7 +108,7 @@ class Login extends Component<any> {
 
               <LoginButton
                 onPress={() => this.props.handleSubmit()}
-                disabled={this.props.values.isLoading}
+                disabled={this.props.isSubmitting}
               >
                 <Text>Entrar como {this.getTranslatedScope()}</Text>
               </LoginButton>
@@ -116,10 +121,10 @@ class Login extends Component<any> {
 }
 
 export default withFormik<any, any, any>({
-  mapPropsToValues: () => ({ email: "", password: "", isLoading: false, scope: "student" }),
+  mapPropsToValues: () => ({ email: "", password: "", scope: "student" }),
   validateOnBlur: false,
   validateOnChange: false,
-  validate: (values: LoginForm, { props }) => {
+  validate: (values: LoginForm) => {
     const error: LoginForm = {};
 
     if (!values.email?.trim()) {
@@ -140,10 +145,8 @@ export default withFormik<any, any, any>({
 
     return error;
   },
-  handleSubmit: async (values: LoginForm, { props, setFieldValue }) => {
+  handleSubmit: (values: LoginForm, { setSubmitting }) => {
     let { email, password, callback } = values;
-    setFieldValue("isLoading", true);
-    await callback!(email, password);
-    setFieldValue("isLoading", false);
+    callback!(email, password, setSubmitting);
   },
 })(Login);

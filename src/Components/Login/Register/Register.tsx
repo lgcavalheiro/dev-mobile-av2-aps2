@@ -1,6 +1,6 @@
 import logo from "../../../../assets/logo.png";
 import React, { Component } from "react";
-import { Alert, Image, KeyboardAvoidingView } from "react-native";
+import { ActivityIndicator, Alert, Image, KeyboardAvoidingView } from "react-native";
 import { withFormik } from "formik";
 import { Text, ButtonGroup, TextInput, TouchableOpacity } from "../../../Shared/StyledComponents";
 import { MainTheme } from "../../../Shared/ColorPalette";
@@ -66,25 +66,37 @@ class Register extends Component<any> {
         />
 
         <ButtonGroup>
-          <TouchableOpacity
-            hasBorder
-            color={MainTheme.background}
-            onPress={() => this.props.navigation.goBack()}
-          >
-            <Text customColor={MainTheme.primary}>Voltar</Text>
-          </TouchableOpacity>
-
           <Consumer>
-            {(context: any) => (
-              <TouchableOpacity
-                onPress={() => {
-                  this.props.setFieldValue("callback", context.actions.setName);
-                  this.props.handleSubmit();
-                }}
-              >
-                <Text bold>Concluir</Text>
-              </TouchableOpacity>
-            )}
+            {(context: any) => {
+              return this.props.isSubmitting ? (
+                <ActivityIndicator
+                  color={MainTheme.secondary}
+                  size={64}
+                  style={{ padding: 16, alignSelf: "center" }}
+                />
+              ) : (
+                <>
+                  <TouchableOpacity
+                    hasBorder
+                    color={MainTheme.background}
+                    onPress={() => this.props.navigation.goBack()}
+                    disabled={this.props.isSubmitting}
+                  >
+                    <Text customColor={MainTheme.primary}>Voltar</Text>
+                  </TouchableOpacity>
+
+                  <TouchableOpacity
+                    onPress={() => {
+                      this.props.setFieldValue("callback", context.actions.setName);
+                      this.props.handleSubmit();
+                    }}
+                    disabled={this.props.isSubmitting}
+                  >
+                    <Text bold>Concluir</Text>
+                  </TouchableOpacity>
+                </>
+              );
+            }}
           </Consumer>
         </ButtonGroup>
       </KeyboardAvoidingView>
@@ -96,7 +108,7 @@ export default withFormik<any, any, any>({
   mapPropsToValues: () => ({ email: "", password: "", passwordConfirm: "", displayName: "" }),
   validateOnBlur: false,
   validateOnChange: false,
-  validate: (values: RegisterForm, props) => {
+  validate: (values: RegisterForm) => {
     const error: RegisterForm = {};
 
     if (!values.email?.trim()) {
@@ -126,7 +138,7 @@ export default withFormik<any, any, any>({
 
     return error;
   },
-  handleSubmit: (values: RegisterForm, { props }) => {
+  handleSubmit: (values: RegisterForm, { setSubmitting }) => {
     let { displayName, email, password, callback } = values;
 
     AuthService.register(email!, password!, displayName!, callback!)
@@ -143,6 +155,7 @@ export default withFormik<any, any, any>({
             text: "Ok",
           },
         ])
-      );
+      )
+      .finally(() => setSubmitting(false));
   },
 })(Register);

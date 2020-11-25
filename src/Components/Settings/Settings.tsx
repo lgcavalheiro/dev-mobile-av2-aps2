@@ -3,12 +3,12 @@ import { MainTheme } from "../../Shared/ColorPalette";
 import { BGI, GenericBox, Text, TextInput, TouchableOpacity } from "../../Shared/StyledComponents";
 import AuthService from "../../Services/AuthService";
 import { Alert } from "react-native";
-import { SettingsState } from "./Settings.type";
 import { Consumer } from "../../Context/User/UserProvider.context";
 
 export default class Settings extends Component {
-  state: SettingsState = {
+  state = {
     displayName: "",
+    isLoading: false,
   };
 
   private handleLogout() {
@@ -23,9 +23,11 @@ export default class Settings extends Component {
         { text: "Ok" },
       ]);
     } else {
+      this.setState({ isLoading: true });
       AuthService.redefineDisplayName(this.state.displayName, setName)
         .then(response => Alert.alert("Sucesso!", response, [{ text: "Ok" }]))
-        .catch(e => Alert.alert("Erro de formulário", e, [{ text: "Ok" }]));
+        .catch(e => Alert.alert("Erro de formulário", e, [{ text: "Ok" }]))
+        .finally(() => this.setState({ isLoading: false }));
     }
   }
 
@@ -48,11 +50,12 @@ export default class Settings extends Component {
               <TouchableOpacity
                 alignSelf="center"
                 onPress={() => this.validateForm(context.actions.setName)}
+                disabled={this.state.isLoading}
               >
                 <Text>Atualizar nome</Text>
               </TouchableOpacity>
             </GenericBox>
-            <TouchableOpacity onPress={() => this.handleLogout()}>
+            <TouchableOpacity onPress={() => this.handleLogout()} disabled={this.state.isLoading}>
               <Text>Logout</Text>
             </TouchableOpacity>
           </BGI>

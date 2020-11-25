@@ -1,15 +1,6 @@
 import React, { Component } from "react";
-import { Image, ActivityIndicator, Alert } from "react-native";
-import {
-  Text,
-  GenericBox,
-  ButtonGroup,
-  TextInput,
-  TextButton,
-  BGI,
-  View,
-  TouchableOpacity,
-} from "../../../Shared/StyledComponents";
+import { Alert } from "react-native";
+import { Text, TextInput, View, TouchableOpacity } from "../../../Shared/StyledComponents";
 import { MainTheme } from "../../../Shared/ColorPalette";
 import AuthService from "../../../Services/AuthService";
 
@@ -65,8 +56,7 @@ export default class ForgotPassword extends Component<any> {
         </Text>
 
         <TextInput
-          width={92}
-          height={8}
+          width={330}
           placeholder="Email"
           onChangeText={(text: string) => this.setState({ email: text.trim() })}
           value={this.state.email}

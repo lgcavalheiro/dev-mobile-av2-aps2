@@ -8,10 +8,10 @@ import UserProvider from "./src/Context/User/UserProvider";
 
 import { LogBox } from "react-native";
 
-LogBox.ignoreLogs(["Setting a timer"]);
+LogBox.ignoreLogs(["Setting a timer", "Can't perform a React"]);
 const _console = { ...console };
 console.warn = (message: string | string[]) => {
-  if (message.indexOf("Setting a timer") <= -1) {
+  if (message.indexOf("Setting a timer") <= -1 || message.indexOf("Can't perform a React") <= -1) {
     _console.warn(message);
   }
 };
