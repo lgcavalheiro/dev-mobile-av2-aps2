@@ -35,6 +35,7 @@ export const Text = styled.Text<any>`
     else if (props.dark) return `color: ${props.theme.darkText}`;
     else return `color: ${props.theme.lightText}`;
   }}
+  ${props => (props.marginTop ? `margin-top: ${props.marginTop}px;` : "")}
   ${props => (props.rightAligned ? "text-align: right;" : "")}
   ${props => (props.bold ? "font-weight: bold;" : "")}
   ${props => (props.fontSize ? `font-size: ${props.fontSize}px;` : "")}

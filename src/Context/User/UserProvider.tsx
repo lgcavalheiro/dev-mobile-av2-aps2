@@ -1,9 +1,8 @@
-import "firebase/auth";
-import firebase from "firebase";
 import React, { Component } from "react";
 import { IUserContext } from "./UserProvider.type";
 import { Provider } from "./UserProvider.context";
 import { IGroup } from "../../Components/Group/Group.type";
+import AuthService from "../../Services/AuthService";
 
 export default class UserProvider extends Component {
   state: IUserContext = {
@@ -33,7 +32,7 @@ export default class UserProvider extends Component {
       },
       {
         name: "Teoria da Complexidade",
-        description: "Please God send help!",
+        description: "Abandon hope all ye who enter here",
       },
     ],
     actions: {
@@ -50,9 +49,8 @@ export default class UserProvider extends Component {
   unsubscribeAuthState!: firebase.Unsubscribe;
 
   componentDidMount() {
-    this.unsubscribeAuthState = firebase
-      .auth()
-      .onAuthStateChanged((user: firebase.User | null) => this.onAuthStateChange(user));
+    this.onAuthStateChange = this.onAuthStateChange.bind(this);
+    this.unsubscribeAuthState = AuthService.subscribeToAuthState(this.onAuthStateChange);
   }
 
   componentWillUnmount() {

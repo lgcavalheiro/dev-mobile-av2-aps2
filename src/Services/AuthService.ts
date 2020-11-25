@@ -74,4 +74,8 @@ export default class AuthService {
         });
     });
   }
+
+  public static subscribeToAuthState(callback: Function): firebase.Unsubscribe {
+    return firebase.auth().onAuthStateChanged((user: firebase.User | null) => callback(user));
+  }
 }

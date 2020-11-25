@@ -31,29 +31,33 @@ export default class Settings extends Component {
 
   render() {
     return (
-      <BGI source={MainTheme.bgi}>
-        <TouchableOpacity onPress={() => this.handleLogout()}>
-          <Text>Logout</Text>
-        </TouchableOpacity>
-        <GenericBox color={MainTheme.secondary}>
-          <Text>Novo display name:</Text>
-          <TextInput
-            opaque
-            placeholder="Display name"
-            onChangeText={(text: string) => this.setState({ displayName: text })}
-          />
-          <Consumer>
-            {(context: any) => (
+      <Consumer>
+        {(context: any) => (
+          <BGI source={MainTheme.bgi}>
+            <Text bold alignSelf="center" fontSize={32}>
+              Olá {context.name || context.email}!
+            </Text>
+            <GenericBox color={MainTheme.secondary}>
+              <Text>Novo display name:</Text>
+              <TextInput
+                opaque
+                placeholder="Display name"
+                onChangeText={(text: string) => this.setState({ displayName: text })}
+              />
+
               <TouchableOpacity
                 alignSelf="center"
                 onPress={() => this.validateForm(context.actions.setName)}
               >
                 <Text>Atualizar nome</Text>
               </TouchableOpacity>
-            )}
-          </Consumer>
-        </GenericBox>
-      </BGI>
+            </GenericBox>
+            <TouchableOpacity onPress={() => this.handleLogout()}>
+              <Text>Logout</Text>
+            </TouchableOpacity>
+          </BGI>
+        )}
+      </Consumer>
     );
   }
 }

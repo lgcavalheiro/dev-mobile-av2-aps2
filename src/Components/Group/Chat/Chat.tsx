@@ -1,5 +1,3 @@
-import "firebase/firestore";
-import firebase from "firebase";
 import React, { Component } from "react";
 import { ActivityIndicator, Alert, KeyboardAvoidingView } from "react-native";
 import { MainTheme } from "../../../Shared/ColorPalette";
@@ -15,12 +13,14 @@ import { ChatState } from "./Chat.type";
 import { ChatLog } from "./Chat.style";
 import { Message } from "./ChatMessage/ChatMessage.type";
 import ChatMessage from "./ChatMessage/ChatMessage";
+import FirestoreService from "../../../Services/FirestoreService";
 
 export default class Chat extends Component<any> {
   state: ChatState = {
     text: "",
     author: "",
     email: "",
+    room: `messages-${this.props.route.params.group}`,
     timestamp: undefined,
     messageLog: undefined,
     isLoading: false,
@@ -29,14 +29,11 @@ export default class Chat extends Component<any> {
   unsubscribeMessageListener!: firebase.Unsubscribe;
 
   componentDidMount() {
-    this.unsubscribeMessageListener = firebase
-      .firestore()
-      .collection(`messages-${this.props.route.params.group}`)
-      .orderBy("timestamp")
-      .onSnapshot(
-        snap => this.onSnapshotUpdate(snap),
-        e => console.log(e)
-      );
+    this.onSnapshotUpdate = this.onSnapshotUpdate.bind(this);
+    this.unsubscribeMessageListener = FirestoreService.subscribeToCollectionUpdate(
+      this.state.room,
+      this.onSnapshotUpdate
+    );
   }
 
   componentWillUnmount() {
@@ -65,10 +62,7 @@ export default class Chat extends Component<any> {
   private handleAddMessage() {
     let { text, author, email } = this.state;
     this.setState({ isLoading: true });
-    firebase
-      .firestore()
-      .collection(`messages-${this.props.route.params.group}`)
-      .add({ text, author, email, timestamp: firebase.firestore.FieldValue.serverTimestamp() })
+    FirestoreService.addToCollection(this.state.room, { text, author, email })
       .then(() => this.setState({ text: "" }))
       .catch(e =>
         Alert.alert("Erro de char", e, [
@@ -85,7 +79,10 @@ export default class Chat extends Component<any> {
       <Consumer>
         {(context: any) => (
           <BGI source={MainTheme.bgi}>
-            <KeyboardAvoidingView contentContainerStyle={{ backgroundColor: MainTheme.secondary }}>
+            <KeyboardAvoidingView>
+              {<Text bold alignSelf="center" fontSize={26} marginTop={42}>
+                {this.props.route.params.group}
+              </Text>}
               <ChatLog>
                 {this.state.messageLog?.map((m: Message) => (
                   <ChatMessage key={m.id} isOwner={context.email === m.email} message={m} />

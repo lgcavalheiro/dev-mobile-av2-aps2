@@ -1,4 +1,4 @@
-import React, { Component, useCallback } from "react";
+import React, { Component } from "react";
 import { Alert } from "react-native";
 import { Consumer } from "../../../Context/User/UserProvider.context";
 import { MainTheme } from "../../../Shared/ColorPalette";
@@ -10,17 +10,12 @@ import {
   ButtonGroup,
   TouchableOpacity,
 } from "../../../Shared/StyledComponents";
-import { IGroup } from "../Group.type";
 
 export default class CreateGroup extends Component<any> {
   state = {
     name: "",
     description: "",
   };
-
-  componentDidMount() {
-    console.log("WTATDTFASTDAS: ", this.state);
-  }
 
   private validateForm(callback: Function) {
     if (!this.state.name) {
