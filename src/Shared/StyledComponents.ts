@@ -1,20 +1,6 @@
 import styled from "styled-components/native";
 import { MainTheme } from "./ColorPalette";
 
-interface Props {
-  theme: {
-    primary: string;
-    darkText: string;
-    lightText: string;
-    background: string;
-  };
-  color: string;
-  customColor: string;
-  dark: boolean;
-  rightAligned: boolean;
-  bold: boolean;
-}
-
 export const ScrollView = styled.ScrollView<any>`
   height: 100%;
   width: 90%;
@@ -67,7 +53,7 @@ export const TouchableOpacity = styled.TouchableOpacity<any>`
 `;
 
 export const GenericBox = styled.View<any>`
-  height: 74%;
+  height: 420px;
   width: 92%;
   margin-top: 16px;
   background-color: ${props => props.color || props.theme.background};
@@ -79,15 +65,16 @@ export const GenericBox = styled.View<any>`
 `;
 
 export const GenericCard = styled(GenericBox)`
-  height: 14%;
+  height: 156px;
   width: 100%;
   align-items: center;
   padding: 8px;
 `;
 
-export const ButtonGroup = styled.View`
+export const ButtonGroup = styled.View<any>`
   flex-direction: row;
   background-color: rgba(0, 0, 0, 0);
+  ${props => (props.jc ? `justify-content: ${props.jc};` : "")}
 `;
 
 export const TextInput = styled.TextInput<any>`
@@ -96,9 +83,10 @@ export const TextInput = styled.TextInput<any>`
   margin-top: 5px;
   border-radius: 5px;
   padding: 0 20px;
-  ${props => (props.width ? `width: ${props.width}%;` : "")}
-  ${props => (props.height ? `height: ${props.height}%;` : "")}
+  ${props => (props.width ? `width: ${props.width}px;` : "")}
+  ${props => (props.height ? `height: ${props.height}px;` : "")}
   background-color: ${props => (props.opaque ? props.theme.background : "rgba(0, 0, 0, 0)")};
+  ${props => (props.marginBottom ? `margin-bottom: ${props.marginBottom}px;` : "")}
 `;
 
 export const TextButton = styled(TouchableOpacity)`

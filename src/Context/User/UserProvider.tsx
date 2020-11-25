@@ -3,14 +3,47 @@ import firebase from "firebase";
 import React, { Component } from "react";
 import { IUserContext } from "./UserProvider.type";
 import { Provider } from "./UserProvider.context";
+import { IGroup } from "../../Components/Group/Group.type";
 
 export default class UserProvider extends Component {
   state: IUserContext = {
     name: "",
     email: "",
     isAuth: false,
+    groupList: [
+      {
+        name: "Desenvolvimento Web",
+        description: "Desenvolvimento web moderno",
+      },
+      {
+        name: "Engenharia de Requisitos",
+        description: "",
+      },
+      {
+        name: "Fundamentos do Design",
+        description: "Desenvolvimento web moderno",
+      },
+      {
+        name: "Banco de Dados I",
+        description: "Utilizando MySQL",
+      },
+      {
+        name: "Metodologia Científica",
+        description: "",
+      },
+      {
+        name: "Teoria da Complexidade",
+        description: "Please God send help!",
+      },
+    ],
     actions: {
       setName: (name: string) => this.setState({ name }),
+      addGroup: (newGroup: IGroup) =>
+        this.setState((prev: any) => {
+          return {
+            groupList: [...prev.groupList, newGroup],
+          };
+        }),
     },
   };
 

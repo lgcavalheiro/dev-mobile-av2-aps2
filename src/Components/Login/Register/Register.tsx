@@ -28,8 +28,7 @@ class Register extends Component<any> {
         </Text>
         <Text customColor={MainTheme.danger}>{this.props.errors.displayName}</Text>
         <TextInput
-          width={92}
-          height={8}
+          width={330}
           placeholder="Nome"
           onChangeText={(text: string) => this.props.setFieldValue("displayName", text.trim())}
         />
@@ -39,8 +38,7 @@ class Register extends Component<any> {
         </Text>
         <Text customColor={MainTheme.danger}>{this.props.errors.email}</Text>
         <TextInput
-          width={92}
-          height={8}
+          width={330}
           placeholder="Email"
           onChangeText={(text: string) => this.props.setFieldValue("email", text.trim())}
         />
@@ -50,8 +48,7 @@ class Register extends Component<any> {
         </Text>
         <Text customColor={MainTheme.danger}>{this.props.errors.password}</Text>
         <TextInput
-          width={92}
-          height={8}
+          width={330}
           placeholder="Senha"
           secureTextEntry={true}
           onChangeText={(text: string) => this.props.setFieldValue("password", text.trim())}
@@ -62,8 +59,7 @@ class Register extends Component<any> {
         </Text>
         <Text customColor={MainTheme.danger}>{this.props.errors.passwordConfirm}</Text>
         <TextInput
-          width={92}
-          height={8}
+          width={330}
           placeholder="Confirmar senha"
           secureTextEntry={true}
           onChangeText={(text: string) => this.props.setFieldValue("passwordConfirm", text.trim())}
