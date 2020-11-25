@@ -121,10 +121,10 @@ class Login extends Component<any> {
 }
 
 export default withFormik<any, any, any>({
-  mapPropsToValues: () => ({ email: "", password: "", isLoading: false, scope: "student" }),
+  mapPropsToValues: () => ({ email: "", password: "", scope: "student" }),
   validateOnBlur: false,
   validateOnChange: false,
-  validate: (values: LoginForm, { props }) => {
+  validate: (values: LoginForm) => {
     const error: LoginForm = {};
 
     if (!values.email?.trim()) {
